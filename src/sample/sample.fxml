@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -41,9 +40,14 @@
                               <Button layoutX="114.0" layoutY="10.0" mnemonicParsing="false" text="Delete" />
                            </children>
                         </AnchorPane>
+                        <AnchorPane prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#addTask" text="Add" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
+                              <Button mnemonicParsing="false" text="Start" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" text="Add" />
                </children>
             </VBox>
          </children>
