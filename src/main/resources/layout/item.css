@@ -1,0 +1,10 @@
+.item_header .close_btn{
+    -fx-background-color: none;
+}
+.close_icon {
+    -fx-fill:  #cc9a9a;
+}
+
+.close_icon:hover {
+    -fx-fill:  #af5b5e;
+}
