@@ -1,47 +1,107 @@
 package model;
 
+import javafx.beans.property.*;
+
 /**
  * Created by anton on 09.10.16.
  */
 public class MyTask {
-    public enum taskType{
-        RELAX, WORK
-    }
+    StringProperty name = new SimpleStringProperty();
+    LongProperty time = new SimpleLongProperty();
+    LongProperty pause = new SimpleLongProperty();
+    IntegerProperty times = new SimpleIntegerProperty();
+    BooleanProperty done = new SimpleBooleanProperty();
+    BooleanProperty active = new SimpleBooleanProperty();
 
-    String name;
-    Long time;
-    taskType type;
 
     public MyTask() {
+        done.setValue(false);
+        active.setValue(true);
     }
 
-    public MyTask(String name, Long time, taskType type) {
+    public MyTask(StringProperty name, LongProperty time, LongProperty pause, IntegerProperty times) {
         this.name = name;
         this.time = time;
-        this.type = type;
+        this.pause = pause;
+        this.times = times;
+        done.setValue(false);
+        active.setValue(true);
     }
 
     public String getName() {
+        return name.get();
+    }
+
+    public StringProperty nameProperty() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
-    public Long getTime() {
+    public long getTime() {
+        return time.get();
+    }
+
+    public LongProperty timeProperty() {
         return time;
     }
 
-    public void setTime(Long time) {
-        this.time = time;
+    public void setTime(long time) {
+        this.time.set(time);
     }
 
-    public taskType getType() {
-        return type;
+    public long getPause() {
+        return pause.get();
     }
 
-    public void setType(taskType type) {
-        this.type = type;
+    public LongProperty pauseProperty() {
+        return pause;
+    }
+
+    public void setPause(long pause) {
+        this.pause.set(pause);
+    }
+
+    public int getTimes() {
+        return times.get();
+    }
+
+    public IntegerProperty timesProperty() {
+        return times;
+    }
+
+    public void setTimes(int times) {
+        this.times.set(times);
+    }
+
+    public boolean isDone() {
+        return done.get();
+    }
+
+    public BooleanProperty doneProperty() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done.set(done);
+    }
+
+    public boolean isActive() {
+        return active.get();
+    }
+
+    public BooleanProperty activeProperty() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active.set(active);
+    }
+
+    @Override
+    public String toString() {
+        return name.getValue();
     }
 }

@@ -28,7 +28,7 @@
       </AnchorPane>
       <HBox>
          <children>
-            <CheckBox mnemonicParsing="false" />
+            <CheckBox fx:id="active" mnemonicParsing="false" />
             <HBox>
                <children>
                   <Label text="Time" />
