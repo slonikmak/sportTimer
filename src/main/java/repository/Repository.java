@@ -1,8 +1,7 @@
 package repository;
 
 import javafx.beans.Observable;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,6 +14,8 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class Repository {
+    private LongProperty wholeTime = new SimpleLongProperty();
+
     private ObservableList<MyTask> allTasks = FXCollections.observableArrayList(item->{
         return new Observable[]{item.doneProperty(), item.activeProperty()};
     });
@@ -22,7 +23,10 @@ public class Repository {
     private FilteredList<MyTask> completedTasks = new FilteredList<MyTask>(allTasks, MyTask::isDone);
     private FilteredList<MyTask> activeTasks = new FilteredList<MyTask>(allTasks, myTask -> !myTask.isDone()&&myTask.isActive());
 
+
     private ListProperty<MyTask> tasksProperty = new SimpleListProperty<>(allTasks);
+
+    private ObjectProperty<MyTask> playingTask = new SimpleObjectProperty<>();
 
     public ObservableList<MyTask> tasksProperty(){return tasksProperty;}
 
@@ -50,5 +54,27 @@ public class Repository {
 
     public void deleteItem(MyTask task) {
         allTasks.remove(task);
+    }
+
+    public void setPlayingTask(MyTask task){
+        playingTask.setValue(task);
+    }
+
+    public ObjectProperty<MyTask> playingTask(){
+        return playingTask;
+    }
+
+    public Repository(){
+        init();
+        activeTasks.
+    }
+
+    public void init(){
+        MyTask task = new MyTask();
+        task.setTimes(2);
+        task.setTime(10);
+        task.setPause(4);
+        task.setName("Dance dance dance");
+        addItem(task);
     }
 }

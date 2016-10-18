@@ -1,24 +1,34 @@
 package controllers;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.MyTask;
 import repository.Repository;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by anton on 16.10.16.
  */
-public class ControlsController {
+public class ControlsController implements Initializable{
     Repository repository;
     final String pathToMain = "/layout/add.fxml";
     final URL mainFxmlUrl;
+
+    @FXML
+    Label leftTasks;
 
     @FXML
     void addTask(ActionEvent event) {
@@ -57,7 +67,21 @@ public class ControlsController {
     public ControlsController(Repository repository){
         this.repository = repository;
         mainFxmlUrl = this.getClass().getResource(pathToMain);
+        //repository.init();
     }
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ListProperty<MyTask> activTasksProperty = new SimpleListProperty<>(repository.activeTasksProperty());
+
+        leftTasks.textProperty().bind(Bindings.createStringBinding(()->{
+            final int size = activTasksProperty.getSize();
+
+            final String taskText = size == 1 ? "task" : "tasks";
+
+            return size + " " + taskText + " left";
+        },  activTasksProperty.sizeProperty()));
+
+    }
 }

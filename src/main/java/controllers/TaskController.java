@@ -1,5 +1,8 @@
 package controllers;
 
+import de.jensd.fx.glyphs.control.GlyphCheckBox;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +19,13 @@ import java.util.ResourceBundle;
  * Created by anton on 16.10.16.
  */
 public class TaskController implements Initializable{
+    private final String doneLabel = String.valueOf(FontAwesomeIcon.CHECK);
+    private final String playingLabel = String.valueOf(FontAwesomeIcon.PLAY);
+
+
+
+    @FXML
+    FontAwesomeIconView playLabel;
 
     @FXML
     private Label title;
@@ -30,10 +40,11 @@ public class TaskController implements Initializable{
     private Label timesLable;
 
     @FXML
-    private CheckBox active;
+    private GlyphCheckBox active;
 
     @FXML
     void deleteTask(ActionEvent event) {
+        repository.deleteItem(task);
 
     }
 
@@ -50,6 +61,8 @@ public class TaskController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //completed.selectedProperty().bindBidirectional(todoItem.doneProperty());
+        playLabel.setGlyphName(String.valueOf(FontAwesomeIcon.DOT_CIRCLE_ALT));
+
 
         title.textProperty().bindBidirectional(task.nameProperty());
         timeLable.textProperty().bindBidirectional(task.timeProperty(), new NumberStringConverter());
