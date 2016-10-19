@@ -7,13 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.MyTask;
 import repository.Repository;
+import utils.Utils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +29,9 @@ public class ControlsController implements Initializable{
 
     @FXML
     Label leftTasks;
+
+    @FXML
+    Label leftTimeLabel;
 
     @FXML
     void addTask(ActionEvent event) {
@@ -82,6 +85,11 @@ public class ControlsController implements Initializable{
 
             return size + " " + taskText + " left";
         },  activTasksProperty.sizeProperty()));
+
+        leftTimeLabel.textProperty().bind(Bindings.createStringBinding(()->{
+            final long timeMillis = repository.getWholeTime().getValue();
+            return Utils.prepareTime(timeMillis)+" min";
+        }, repository.getWholeTime()));
 
     }
 }

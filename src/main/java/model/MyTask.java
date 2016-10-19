@@ -100,6 +100,10 @@ public class MyTask {
         this.active.set(active);
     }
 
+    public long getWholeTime(){
+        return (getTime()+getPause())*getTimes();
+    }
+
     @Override
     public String toString() {
         return name.getValue();

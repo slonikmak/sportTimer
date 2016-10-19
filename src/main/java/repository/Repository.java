@@ -3,6 +3,7 @@ package repository;
 import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import model.MyTask;
@@ -14,7 +15,7 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class Repository {
-    private LongProperty wholeTime = new SimpleLongProperty();
+    private LongProperty wholeTime = new SimpleLongProperty(0);
 
     private ObservableList<MyTask> allTasks = FXCollections.observableArrayList(item->{
         return new Observable[]{item.doneProperty(), item.activeProperty()};
@@ -64,9 +65,26 @@ public class Repository {
         return playingTask;
     }
 
+    public LongProperty getWholeTime(){
+        return wholeTime;
+    }
+
     public Repository(){
+
+        activeTasks.addListener(new ListChangeListener<MyTask>() {
+            @Override
+            public void onChanged(Change<? extends MyTask> c) {
+
+                final long[] val = {0};
+                activeTasks.forEach(task -> {
+                    val[0] += task.getWholeTime();
+                });
+                wholeTime.setValue(val[0]);
+            }
+        });
+
         init();
-        activeTasks.
+
     }
 
     public void init(){
