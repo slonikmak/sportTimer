@@ -12,3 +12,7 @@
     -fx-font-size:2em;
     -fx-text-fill: rgba(175, 47, 47, 0.5);
 }
+
+.playing_icon{
+    -fx-fill: rgb(0, 200, 22);
+}

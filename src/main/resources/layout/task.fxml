@@ -15,7 +15,7 @@
          <children>
             <Label layoutX="14.0" layoutY="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
                <graphic>
-                  <FontAwesomeIconView fx:id="playLabel" glyphName="PLAY" size="18.0" />
+                  <FontAwesomeIconView fx:id="playLabel" glyphName="PLAY" size="18.0" styleClass="playing_icon"/>
                </graphic>
             </Label>
             <Label fx:id="title" layoutX="81.0" layoutY="14.0" styleClass="title_task" text="Indian dance" AnchorPane.leftAnchor="35.0" />
