@@ -9,6 +9,7 @@ import javafx.collections.transformation.FilteredList;
 import model.MyTask;
 
 import javax.inject.Singleton;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by anton on 16.10.16.
@@ -16,6 +17,7 @@ import javax.inject.Singleton;
 @Singleton
 public class Repository {
     private LongProperty wholeTime = new SimpleLongProperty(0);
+
 
     private ObservableList<MyTask> allTasks = FXCollections.observableArrayList(item->{
         return new Observable[]{item.doneProperty(), item.activeProperty()};
@@ -90,9 +92,13 @@ public class Repository {
     public void init(){
         MyTask task = new MyTask();
         task.setTimes(2);
-        task.setTime(10);
-        task.setPause(4);
+        task.setTime(4);
+        task.setPause(2);
         task.setName("Dance dance dance");
         addItem(task);
+    }
+
+    public void setQueue(){
+
     }
 }

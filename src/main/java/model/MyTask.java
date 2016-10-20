@@ -2,10 +2,18 @@ package model;
 
 import javafx.beans.property.*;
 
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 /**
  * Created by anton on 09.10.16.
  */
 public class MyTask {
+    private ConcurrentLinkedQueue<TaskQueueItem> queue = new ConcurrentLinkedQueue<>();
+    private long currTime;
+    private TaskQueueItem currQueueItem;
+
+
     StringProperty name = new SimpleStringProperty();
     LongProperty time = new SimpleLongProperty();
     LongProperty pause = new SimpleLongProperty();
@@ -104,8 +112,73 @@ public class MyTask {
         return (getTime()+getPause())*getTimes();
     }
 
+    public void setQueue(){
+        currTime = 0;
+        for (int i = 0; i < getTimes(); i++) {
+            queue.add(new TaskQueueItem(getTime(), TaskQueueItem.Type.WORK));
+            currTime += getTime();
+            queue.add(new TaskQueueItem(getPause(), TaskQueueItem.Type.PAUSE));
+            currTime+=getPause();
+        }
+        currQueueItem = queue.poll();
+        System.out.println(currQueueItem.getType());
+        System.out.println(currQueueItem.getTime());
+    }
+
+    public void sub(int duration){
+        currTime-=duration;
+        if (currQueueItem.getTime()==0){
+            currQueueItem = queue.poll();
+            System.out.println(currQueueItem.getType());
+            System.out.println(currQueueItem.getTime());
+        }
+        currQueueItem.sub(duration);
+
+    }
+
+    public long getCurrentTime(){
+        return currTime;
+    }
+
     @Override
     public String toString() {
         return name.getValue();
+    }
+
+    public static class TaskQueueItem{
+        enum Type {
+            WORK, PAUSE
+        }
+        long time;
+        Type type;
+
+        public TaskQueueItem(){
+
+        }
+
+        public TaskQueueItem(long time, Type type) {
+            this.time = time*1000;
+            this.type = type;
+        }
+
+        public void sub(int duration){
+            time = time-duration;
+        }
+
+        public long getTime() {
+            return time;
+        }
+
+        public void setTime(long time) {
+            this.time = time*1000;
+        }
+
+        public Type getType() {
+            return type;
+        }
+
+        public void setType(Type type) {
+            this.type = type;
+        }
     }
 }

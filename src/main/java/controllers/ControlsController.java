@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import model.MyTask;
 import repository.Repository;
+import timerService.TimerService;
 import utils.Utils;
 
 import java.io.IOException;
@@ -59,7 +60,8 @@ public class ControlsController implements Initializable{
 
     @FXML
     void start(ActionEvent event) {
-
+        TimerService service = new TimerService(repository);
+        service.startTimer();
     }
 
     @FXML

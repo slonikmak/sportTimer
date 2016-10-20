@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="rootNode" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="active" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane minWidth="-Infinity" prefHeight="31.0" styleClass="item_header" stylesheets="@item.css">
          <children>
             <Label layoutX="14.0" layoutY="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0">
                <graphic>
-                  <FontAwesomeIconView fx:id="playLabel" glyphName="PLAY" size="18.0" styleClass="playing_icon"/>
+                  <FontAwesomeIconView fx:id="playLabel" glyphName="PLAY" size="18.0" styleClass="playing_icon" />
                </graphic>
             </Label>
             <Label fx:id="title" layoutX="81.0" layoutY="14.0" styleClass="title_task" text="Indian dance" AnchorPane.leftAnchor="35.0" />
@@ -28,7 +28,7 @@
       </AnchorPane>
       <AnchorPane>
          <children>
-            <HBox maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <HBox maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <HBox>
                      <children>
@@ -61,6 +61,9 @@
             </HBox>
             <GlyphCheckBox fx:id="active" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0" />
          </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
       </AnchorPane>
    </children>
 </VBox>

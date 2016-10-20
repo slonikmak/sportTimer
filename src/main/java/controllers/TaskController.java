@@ -3,11 +3,14 @@ package controllers;
 import de.jensd.fx.glyphs.control.GlyphCheckBox;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 import model.MyTask;
 import repository.Repository;
@@ -22,7 +25,8 @@ public class TaskController implements Initializable{
     private final String doneLabel = String.valueOf(FontAwesomeIcon.CHECK);
     private final String playingLabel = String.valueOf(FontAwesomeIcon.PLAY);
 
-
+    @FXML
+    VBox rootNode;
 
     @FXML
     FontAwesomeIconView playLabel;
@@ -69,5 +73,18 @@ public class TaskController implements Initializable{
         pauseLable.textProperty().bindBidirectional(task.pauseProperty(), new NumberStringConverter());
         timesLable.textProperty().bindBidirectional(task.timesProperty(), new NumberStringConverter());
         active.selectedProperty().bindBidirectional(task.activeProperty());
+        active.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue){
+                    rootNode.getStyleClass().removeAll("in_active");
+                    rootNode.getStyleClass().add("active");
+                } else {
+                    rootNode.getStyleClass().removeAll("active");
+                    rootNode.getStyleClass().add("in_active");
+                }
+
+            }
+        });
     }
 }

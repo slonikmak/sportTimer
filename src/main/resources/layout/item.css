@@ -8,11 +8,18 @@
 .close_icon:hover {
     -fx-fill:  #af5b5e;
 }
-.title_task {
-    -fx-font-size:2em;
+.active .title_task {
+    -fx-font-size: 2em;
+    -fx-text-fill: rgb(0, 200, 22);
+}
+.in_active .title_task{
+    -fx-font-size: 2em;
     -fx-text-fill: rgba(175, 47, 47, 0.5);
 }
 
-.playing_icon{
+.active .playing_icon{
     -fx-fill: rgb(0, 200, 22);
+}
+.in_active .playing_icon{
+    -fx-fill: rgba(175, 47, 47, 0.5);
 }

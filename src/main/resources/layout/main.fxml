@@ -5,7 +5,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <children>
-      <Label id="title" text="Sport Timer" />
+      <Label id="header_title" text="Sport Timer" />
       <Label id="timer" fx:id="timer" text="10:36" />
       <fx:include source="tasks.fxml" />
       <fx:include source="controls.fxml" />
