@@ -120,6 +120,7 @@ public class MyTask {
             queue.add(new TaskQueueItem(getPause(), TaskQueueItem.Type.PAUSE));
             currTime+=getPause();
         }
+        currTime*=1000;
         currQueueItem = queue.poll();
         System.out.println(currQueueItem.getType());
         System.out.println(currQueueItem.getTime());
@@ -129,8 +130,8 @@ public class MyTask {
         currTime-=duration;
         if (currQueueItem.getTime()==0){
             currQueueItem = queue.poll();
-            System.out.println(currQueueItem.getType());
-            System.out.println(currQueueItem.getTime());
+            System.out.println("type "+currQueueItem.getType());
+            System.out.println("time "+currQueueItem.getTime());
         }
         currQueueItem.sub(duration);
 

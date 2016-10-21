@@ -25,18 +25,22 @@ public class TimerService {
         ObservableList<MyTask> tasks = repository.activeTasksProperty();
         tasks.forEach(MyTask::setQueue);
         final MyTask[] currentTask = {tasks.get(0)};
+
+        System.out.println("whole time task "+currentTask[0].getCurrentTime());
+
         final long[] wholeTime = {repository.getWholeTime().getValue() * 1000};
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(200),
                 ae -> {
-                    if (currentTask[0].getCurrentTime()==0) {
+                    wholeTime[0] = wholeTime[0] - 200;
+                    currentTask[0].sub(200);
+                    System.out.println("time " + currentTask[0].getCurrentTime());
+                    if (currentTask[0].getCurrentTime() == (long) 0) {
                         System.out.println("end");
                         currentTask[0].setActive(false);
                         currentTask[0] = tasks.get(0);
                     }
-                    wholeTime[0] = wholeTime[0] - 200;
-                    currentTask[0].sub(200);
-                    System.out.println("time " + currentTask[0].getCurrentTime());
+
 
                 }));
         timeline.setOnFinished(event -> {
