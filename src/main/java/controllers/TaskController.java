@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 public class TaskController implements Initializable{
     private final String doneLabel = String.valueOf(FontAwesomeIcon.CHECK);
     private final String playingLabel = String.valueOf(FontAwesomeIcon.PLAY);
+    private final String circleLable = String.valueOf(FontAwesomeIcon.DOT_CIRCLE_ALT);
 
     @FXML
     VBox rootNode;
@@ -84,6 +85,13 @@ public class TaskController implements Initializable{
                     rootNode.getStyleClass().add("in_active");
                 }
 
+            }
+        });
+        task.workingProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) playLabel.setGlyphName(playingLabel);
+                else playLabel.setGlyphName(circleLable);
             }
         });
     }

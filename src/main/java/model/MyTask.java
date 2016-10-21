@@ -20,12 +20,15 @@ public class MyTask {
     IntegerProperty times = new SimpleIntegerProperty();
     BooleanProperty done = new SimpleBooleanProperty();
     BooleanProperty active = new SimpleBooleanProperty();
+    BooleanProperty working = new SimpleBooleanProperty();
 
 
     public MyTask() {
         done.setValue(false);
         active.setValue(true);
     }
+
+
 
     public MyTask(StringProperty name, LongProperty time, LongProperty pause, IntegerProperty times) {
         this.name = name;
@@ -34,6 +37,7 @@ public class MyTask {
         this.times = times;
         done.setValue(false);
         active.setValue(true);
+        working.setValue(false);
     }
 
     public String getName() {
@@ -108,8 +112,20 @@ public class MyTask {
         this.active.set(active);
     }
 
+    public boolean isWorking() {
+        return working.get();
+    }
+
+    public BooleanProperty workingProperty() {
+        return working;
+    }
+
+    public void setWorking(boolean working) {
+        this.working.set(working);
+    }
+
     public long getWholeTime(){
-        return (getTime()+getPause())*getTimes();
+        return (getTime()+getPause())*getTimes()*1000;
     }
 
     public void setQueue(){

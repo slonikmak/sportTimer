@@ -2,6 +2,8 @@ package timerService;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.util.Duration;
 import model.MyTask;
@@ -17,6 +19,10 @@ import java.util.function.Consumer;
 public class TimerService {
     private Repository repository;
 
+    private final int DURATION_MILLIS = 200;
+
+    private Timeline timeline;
+
     public TimerService(Repository repository) {
         this.repository = repository;
     }
@@ -24,56 +30,51 @@ public class TimerService {
     public void startTimer() {
         ObservableList<MyTask> tasks = repository.activeTasksProperty();
         tasks.forEach(MyTask::setQueue);
-        final MyTask[] currentTask = {tasks.get(0)};
+        final ObjectProperty<MyTask> currTask = new SimpleObjectProperty<>(tasks.get(0));
+        currTask.get().setWorking(true);
 
-        System.out.println("whole time task "+currentTask[0].getCurrentTime());
+        //System.out.println("whole time task "+currentTask[0].getCurrentTime());
 
-        final long[] wholeTime = {repository.getWholeTime().getValue() * 1000};
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(200),
+        timeline = new Timeline(new KeyFrame(
+                Duration.millis(DURATION_MILLIS),
                 ae -> {
-                    wholeTime[0] = wholeTime[0] - 200;
-                    currentTask[0].sub(200);
-                    System.out.println("time " + currentTask[0].getCurrentTime());
-                    if (currentTask[0].getCurrentTime() == (long) 0) {
+                    repository.getWholeTime().setValue(repository.getWholeTime().get()-DURATION_MILLIS);
+                    currTask.get().sub(DURATION_MILLIS);
+                    //System.out.println("time " + tasks.get(0).getCurrentTime());
+                    if (currTask.get().getCurrentTime() == (long) 0) {
                         System.out.println("end");
-                        currentTask[0].setActive(false);
-                        currentTask[0] = tasks.get(0);
+                        currTask.get().setWorking(false);
+                        currTask.get().setActive(false);
+                        if (tasks.size()==0){
+                            timeline.stop();
+                            return;
+                        }
+                        currTask.setValue(tasks.get(0));
+                        tasks.get(0).setWorking(true);
                     }
 
 
                 }));
         timeline.setOnFinished(event -> {
         });
-        timeline.setCycleCount((int) wholeTime[0] / 200);
+        timeline.setCycleCount((int) repository.getWholeTime().get() / DURATION_MILLIS);
 
         timeline.play();
 
 
     }
 
-    private void playTimer(Queue<MyTask.TaskQueueItem> queue) {
-        if (queue.size() == 0) return;
-
-        MyTask.TaskQueueItem queueItem = queue.poll();
-
-        System.out.println(queueItem.getType());
-        System.out.println(queueItem.getTime());
-
-        final long[] time = {queueItem.getTime() * 1000};
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(200),
-                ae -> {
-                    time[0] = time[0] - 200;
-                }));
-        timeline.setOnFinished(event -> {
-        });
-        timeline.setCycleCount((int) time[0] / 200);
-        timeline.setOnFinished(e -> {
-            System.out.println("next");
-            playTimer(queue);
-        });
+    public void play(){
         timeline.play();
     }
+    public void stop(){
+        timeline.stop();
+        timeline=null;
+    }
+    public void pause(){
+        timeline.stop();
+    }
+
+
 
 }
