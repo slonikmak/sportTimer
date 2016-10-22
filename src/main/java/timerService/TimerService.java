@@ -19,15 +19,16 @@ import java.util.function.Consumer;
 public class TimerService {
     private Repository repository;
 
-    private final int DURATION_MILLIS = 200;
+    private final int DURATION_MILLIS = 100;
 
-    private Timeline timeline;
+    private Timeline timeline = null;
 
     public TimerService(Repository repository) {
         this.repository = repository;
     }
 
-    public void startTimer() {
+    private void startTimer() {
+        System.out.println("Start");
         ObservableList<MyTask> tasks = repository.activeTasksProperty();
         tasks.forEach(MyTask::setQueue);
         final ObjectProperty<MyTask> currTask = new SimpleObjectProperty<>(tasks.get(0));
@@ -45,6 +46,7 @@ public class TimerService {
                         System.out.println("end");
                         currTask.get().setWorking(false);
                         currTask.get().setActive(false);
+                        currTask.get().setDone(true);
                         if (tasks.size()==0){
                             timeline.stop();
                             return;
@@ -56,6 +58,7 @@ public class TimerService {
 
                 }));
         timeline.setOnFinished(event -> {
+            tasks.forEach(task -> task.setDone(false));
         });
         timeline.setCycleCount((int) repository.getWholeTime().get() / DURATION_MILLIS);
 
@@ -65,11 +68,14 @@ public class TimerService {
     }
 
     public void play(){
-        timeline.play();
+        if (timeline==null){
+            startTimer();
+        } else timeline.play();
     }
     public void stop(){
         timeline.stop();
         timeline=null;
+        repository.init();
     }
     public void pause(){
         timeline.stop();

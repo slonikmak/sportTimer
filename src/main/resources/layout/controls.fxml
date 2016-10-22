@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControlsController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="400.0" prefWidth="400.0" spacing="21.0" stylesheets="@controls.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControlsController">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
@@ -20,10 +21,22 @@
       </VBox>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#addTask" text="Add" />
-            <ToggleButton mnemonicParsing="false" onAction="#start" text="Start" />
-            <ToggleButton mnemonicParsing="false" onAction="#pause" text="Pause" />
-            <Button mnemonicParsing="false" onAction="#stop" text="Stop" />
+            <Button mnemonicParsing="false" onAction="#addTask" styleClass="awesome_btn">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PLUS" />
+               </graphic></Button>
+            <ToggleButton fx:id="startBtn" mnemonicParsing="false" onAction="#start" styleClass="awesome_btn">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PLAY" />
+               </graphic></ToggleButton>
+            <ToggleButton fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" styleClass="awesome_btn">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PAUSE"  />
+               </graphic></ToggleButton>
+            <Button mnemonicParsing="false" onAction="#stop" styleClass="awesome_btn">
+               <graphic>
+                  <FontAwesomeIconView glyphName="STOP" />
+               </graphic></Button>
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.*;
 
 import java.util.Queue;
@@ -15,18 +17,20 @@ public class MyTask {
 
 
     StringProperty name = new SimpleStringProperty();
-    LongProperty time = new SimpleLongProperty();
-    LongProperty pause = new SimpleLongProperty();
-    IntegerProperty times = new SimpleIntegerProperty();
+    LongProperty time = new SimpleLongProperty(0);
+    LongProperty pause = new SimpleLongProperty(0);
+    IntegerProperty times = new SimpleIntegerProperty(0);
     BooleanProperty done = new SimpleBooleanProperty();
     BooleanProperty active = new SimpleBooleanProperty();
     BooleanProperty working = new SimpleBooleanProperty();
+    NumberBinding totalTime;
 
 
     public MyTask() {
         done.setValue(false);
         active.setValue(true);
-    }
+        working.setValue(false);
+        totalTime = (time.multiply(times)).add(pause.multiply(times));    }
 
 
 
@@ -35,9 +39,12 @@ public class MyTask {
         this.time = time;
         this.pause = pause;
         this.times = times;
+
         done.setValue(false);
         active.setValue(true);
         working.setValue(false);
+        totalTime = (time.multiply(times)).add(pause.multiply(times));
+
     }
 
     public String getName() {
@@ -61,7 +68,7 @@ public class MyTask {
     }
 
     public void setTime(long time) {
-        this.time.set(time);
+        this.time.set(time*1000);
     }
 
     public long getPause() {
@@ -73,7 +80,7 @@ public class MyTask {
     }
 
     public void setPause(long pause) {
-        this.pause.set(pause);
+        this.pause.set(pause*1000);
     }
 
     public int getTimes() {
@@ -125,18 +132,24 @@ public class MyTask {
     }
 
     public long getWholeTime(){
-        return (getTime()+getPause())*getTimes()*1000;
+        return (getTime()+getPause())*getTimes();
+    }
+
+    public Number getTotalTime() {
+        return totalTime.getValue();
+    }
+
+    public NumberBinding totalTimeProperty() {
+        return totalTime;
     }
 
     public void setQueue(){
-        currTime = 0;
+
         for (int i = 0; i < getTimes(); i++) {
             queue.add(new TaskQueueItem(getTime(), TaskQueueItem.Type.WORK));
-            currTime += getTime();
             queue.add(new TaskQueueItem(getPause(), TaskQueueItem.Type.PAUSE));
-            currTime+=getPause();
         }
-        currTime*=1000;
+        currTime = (long)getTotalTime();
         currQueueItem = queue.poll();
         System.out.println(currQueueItem.getType());
         System.out.println(currQueueItem.getTime());

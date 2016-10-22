@@ -3,6 +3,7 @@ package controllers;
 import de.jensd.fx.glyphs.control.GlyphCheckBox;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -14,6 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 import model.MyTask;
 import repository.Repository;
+import utils.Utils;
+import utils.Utils.CustomStringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,6 +28,7 @@ public class TaskController implements Initializable{
     private final String doneLabel = String.valueOf(FontAwesomeIcon.CHECK);
     private final String playingLabel = String.valueOf(FontAwesomeIcon.PLAY);
     private final String circleLable = String.valueOf(FontAwesomeIcon.DOT_CIRCLE_ALT);
+
 
     @FXML
     VBox rootNode;
@@ -43,6 +47,9 @@ public class TaskController implements Initializable{
 
     @FXML
     private Label timesLable;
+
+    @FXML
+    private Label totalTimeLable;
 
     @FXML
     private GlyphCheckBox active;
@@ -70,29 +77,27 @@ public class TaskController implements Initializable{
 
 
         title.textProperty().bindBidirectional(task.nameProperty());
-        timeLable.textProperty().bindBidirectional(task.timeProperty(), new NumberStringConverter());
-        pauseLable.textProperty().bindBidirectional(task.pauseProperty(), new NumberStringConverter());
+        timeLable.textProperty().bindBidirectional(task.timeProperty(), new CustomStringConverter());
+        pauseLable.textProperty().bindBidirectional(task.pauseProperty(), new CustomStringConverter());
+        totalTimeLable.textProperty().bindBidirectional(new SimpleLongProperty(task.totalTimeProperty().longValue()), new CustomStringConverter());
         timesLable.textProperty().bindBidirectional(task.timesProperty(), new NumberStringConverter());
         active.selectedProperty().bindBidirectional(task.activeProperty());
-        active.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue){
-                    rootNode.getStyleClass().removeAll("in_active");
-                    rootNode.getStyleClass().add("active");
-                } else {
-                    rootNode.getStyleClass().removeAll("active");
-                    rootNode.getStyleClass().add("in_active");
-                }
+        active.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue){
+                rootNode.getStyleClass().removeAll("in_active");
+                rootNode.getStyleClass().add("active");
+            } else {
+                rootNode.getStyleClass().removeAll("active");
+                rootNode.getStyleClass().add("in_active");
+            }
 
-            }
         });
-        task.workingProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) playLabel.setGlyphName(playingLabel);
-                else playLabel.setGlyphName(circleLable);
-            }
+        task.workingProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) playLabel.setGlyphName(playingLabel);
+            else playLabel.setGlyphName(circleLable);
+        });
+        task.doneProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) playLabel.setGlyphName(doneLabel);
         });
     }
 }

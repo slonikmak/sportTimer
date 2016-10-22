@@ -1,0 +1,22 @@
+.awesome_btn {
+    -fx-background-color: none;
+}
+.awesome_btn FontAwesomeIconView{
+    -fx-fill: rgb(0, 200, 22);
+    -fx-font-size: 2em;
+}
+.awesome_btn:hover FontAwesomeIconView{
+    -fx-fill: rgb(0, 200, 200);
+    -fx-font-size: 2em;
+}
+.awesome_btn {
+    -fx-font-size: 2em;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+
+}
+.awesome_btn:hover {
+    -fx-font-size: 2em;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+}

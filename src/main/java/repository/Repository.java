@@ -90,12 +90,21 @@ public class Repository {
     }
 
     public void init(){
+        allTasks.clear();
         MyTask task = new MyTask();
         task.setTimes(2);
         task.setTime(4);
         task.setPause(2);
         task.setName("Dance dance dance");
+
+        MyTask task1 = new MyTask();
+        task1.setTimes(3);
+        task1.setTime(3);
+        task1.setPause(2);
+        task1.setName("Do some thing");
+
         addItem(task);
+        addItem(task1);
     }
 
     public void setQueue(){

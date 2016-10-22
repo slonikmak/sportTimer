@@ -9,7 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
 import model.MyTask;
 import repository.Repository;
@@ -27,6 +29,13 @@ public class ControlsController implements Initializable{
     Repository repository;
     final String pathToMain = "/layout/add.fxml";
     final URL mainFxmlUrl;
+    final TimerService timerService;
+
+    @FXML
+    ToggleButton startBtn;
+
+    @FXML
+    ToggleButton pauseBtn;
 
     @FXML
     Label leftTasks;
@@ -55,23 +64,27 @@ public class ControlsController implements Initializable{
 
     @FXML
     void pause(ActionEvent event) {
-
+        timerService.pause();
+        startBtn.setSelected(false);
     }
 
     @FXML
     void start(ActionEvent event) {
-        TimerService service = new TimerService(repository);
-        service.startTimer();
+        timerService.play();
+        pauseBtn.setSelected(false);
     }
 
     @FXML
     void stop(ActionEvent event) {
-
+        timerService.stop();
+        pauseBtn.setSelected(false);
+        startBtn.setSelected(false);
     }
 
     public ControlsController(Repository repository){
         this.repository = repository;
         mainFxmlUrl = this.getClass().getResource(pathToMain);
+        timerService = new TimerService(repository);
         //repository.init();
     }
 
