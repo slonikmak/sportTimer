@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import main.Exercise;
 import model.MyTask;
 
 import javax.inject.Singleton;
@@ -16,6 +17,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 @Singleton
 public class Repository {
+    private Exercise exercise;
+
     private LongProperty wholeTime = new SimpleLongProperty(0);
 
 
@@ -90,24 +93,30 @@ public class Repository {
     }
 
     public void init(){
+        exercise = new Exercise();
+
+
         allTasks.clear();
         MyTask task = new MyTask();
         task.setTimes(2);
         task.setTime(4);
         task.setPause(2);
         task.setName("Dance dance dance");
+        task.setOrderNumber(2);
 
         MyTask task1 = new MyTask();
         task1.setTimes(3);
         task1.setTime(3);
         task1.setPause(2);
         task1.setName("Do some thing");
+        task1.setOrderNumber(1);
+        exercise.addTask(task);
+        exercise.addTask(task1);
 
-        addItem(task);
-        addItem(task1);
+        allTasks.addAll(exercise.getTasks());
+
+        //addItem(task);
+        //addItem(task1);
     }
 
-    public void setQueue(){
-
-    }
 }

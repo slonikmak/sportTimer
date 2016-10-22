@@ -6,3 +6,10 @@
     -fx-font-size:3em;
     -fx-text-fill: rgba(175, 47, 47, 0.5);
 }
+#menuBtn {
+    -fx-background-color: none;
+
+}
+#menuBtn FontAwesomeIconView {
+    -fx-font-size:2em;
+}

@@ -14,9 +14,11 @@ public class MyTask {
     private ConcurrentLinkedQueue<TaskQueueItem> queue = new ConcurrentLinkedQueue<>();
     private long currTime;
     private TaskQueueItem currQueueItem;
+    private int orderNumber;
 
 
     StringProperty name = new SimpleStringProperty();
+    StringProperty description = new SimpleStringProperty();
     LongProperty time = new SimpleLongProperty(0);
     LongProperty pause = new SimpleLongProperty(0);
     IntegerProperty times = new SimpleIntegerProperty(0);
@@ -30,7 +32,9 @@ public class MyTask {
         done.setValue(false);
         active.setValue(true);
         working.setValue(false);
-        totalTime = (time.multiply(times)).add(pause.multiply(times));    }
+        totalTime = (time.multiply(times)).add(pause.multiply(times));
+        orderNumber = 0;
+    }
 
 
 
@@ -44,6 +48,7 @@ public class MyTask {
         active.setValue(true);
         working.setValue(false);
         totalTime = (time.multiply(times)).add(pause.multiply(times));
+        orderNumber = 0;
 
     }
 
@@ -141,6 +146,26 @@ public class MyTask {
 
     public NumberBinding totalTimeProperty() {
         return totalTime;
+    }
+
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public String getDescription() {
+        return description.get();
+    }
+
+    public StringProperty descriptionProperty() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description.set(description);
     }
 
     public void setQueue(){

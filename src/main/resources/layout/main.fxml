@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <children>
-      <Label id="header_title" text="Sport Timer" />
+      <AnchorPane>
+         <children>
+            <StackPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Label id="header_title" text="Sport Timer" />
+               </children>
+            </StackPane>
+            <Button id="menuBtn" fx:id="menuBtn" mnemonicParsing="false">
+               <graphic>
+                  <FontAwesomeIconView glyphName="NAVICON" />
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
       <Label id="timer" fx:id="timer" text="10:36" />
       <fx:include source="tasks.fxml" />
       <fx:include source="controls.fxml" />
