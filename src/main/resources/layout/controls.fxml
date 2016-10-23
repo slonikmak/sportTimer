@@ -23,19 +23,19 @@
          <children>
             <Button mnemonicParsing="false" onAction="#addTask" styleClass="awesome_btn">
                <graphic>
-                  <FontAwesomeIconView glyphName="PLUS" />
+                  <FontAwesomeIconView glyphName="PLUS" size="2em"/>
                </graphic></Button>
             <ToggleButton fx:id="startBtn" mnemonicParsing="false" onAction="#start" styleClass="awesome_btn">
                <graphic>
-                  <FontAwesomeIconView glyphName="PLAY" />
+                  <FontAwesomeIconView glyphName="PLAY" size="2em"/>
                </graphic></ToggleButton>
             <ToggleButton fx:id="pauseBtn" mnemonicParsing="false" onAction="#pause" styleClass="awesome_btn">
                <graphic>
-                  <FontAwesomeIconView glyphName="PAUSE"  />
+                  <FontAwesomeIconView glyphName="PAUSE"  size="2em"/>
                </graphic></ToggleButton>
             <Button mnemonicParsing="false" onAction="#stop" styleClass="awesome_btn">
                <graphic>
-                  <FontAwesomeIconView glyphName="STOP" />
+                  <FontAwesomeIconView glyphName="STOP" size="2em"/>
                </graphic></Button>
          </children>
          <padding>
