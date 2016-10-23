@@ -18,7 +18,7 @@
             </StackPane>
             <Button id="menuBtn" fx:id="menuBtn" mnemonicParsing="false">
                <graphic>
-                  <FontAwesomeIconView glyphName="NAVICON" />
+                  <FontAwesomeIconView glyphName="NAVICON" size="2em"/>
                </graphic>
             </Button>
          </children>
