@@ -16,9 +16,9 @@
                   <Label id="header_title" text="Sport Timer" />
                </children>
             </StackPane>
-            <Button id="menuBtn" fx:id="menuBtn" mnemonicParsing="false">
+            <Button id="menuBtn" mnemonicParsing="false">
                <graphic>
-                  <FontAwesomeIconView glyphName="NAVICON" size="2em"/>
+                  <FontAwesomeIconView glyphName="NAVICON" size="2em" />
                </graphic>
             </Button>
          </children>

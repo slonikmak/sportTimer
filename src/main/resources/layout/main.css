@@ -11,9 +11,13 @@
 
 }
 #menuBtn:hover {
-    -fx-background-color: #a7a7a7;
+
 }
+
+
 #menuBtn FontAwesomeIconView {
+
 }
-#menuBtn:hover FontAwesomeIconView {
+FontAwesomeIconView:hover {
+    -fx-effect:  dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 2, 2);
 }

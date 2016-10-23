@@ -102,6 +102,9 @@ public class Repository {
         task.setTime(4);
         task.setPause(2);
         task.setName("Dance dance dance");
+        task.setDescription("The examples will always reflect the latest version of FontAwesomeFX " +
+                "(currently 8.12 which can be loaded from Bintray) " +
+                "and I am going to extend it soon to show all stuff which provided by the lib.");
         task.setOrderNumber(2);
 
         MyTask task1 = new MyTask();
@@ -109,6 +112,10 @@ public class Repository {
         task1.setTime(3);
         task1.setPause(2);
         task1.setName("Do some thing");
+        task1.setDescription("Ни для кого не секрет что система в процессе своей работы засоряется. " +
+                "Установка и удаление программ, выполнение скриптов, обновления, неверная установка программ " +
+                "из исходников, ошибки в программах, все это оставляет в системе лишние, ненужные пакеты. " +
+                "Со временем этих файлов может накапливаться достаточно большое количество.");
         task1.setOrderNumber(1);
         exercise.addTask(task);
         exercise.addTask(task1);

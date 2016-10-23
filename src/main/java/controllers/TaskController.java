@@ -8,23 +8,28 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import model.MyTask;
 import repository.Repository;
 import utils.Utils;
 import utils.Utils.CustomStringConverter;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
  * Created by anton on 16.10.16.
  */
-public class TaskController implements Initializable{
+public class TaskController implements Initializable {
     private final String doneLabel = String.valueOf(FontAwesomeIcon.CHECK);
     private final String playingLabel = String.valueOf(FontAwesomeIcon.PLAY);
     private final String circleLable = String.valueOf(FontAwesomeIcon.DOT_CIRCLE_ALT);
@@ -60,11 +65,30 @@ public class TaskController implements Initializable{
 
     }
 
+    @FXML
+    private void openInfo(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/layout/taskInfo.fxml"));
+        try {
+            loader.load();
+            Parent parent = loader.getRoot();
+            TaskInfoController controller = loader.getController();
+            controller.setTask(task);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent, 400, 300));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     Repository repository;
     MyTask task;
 
-    public TaskController(Repository repository, MyTask task){
+    public TaskController(Repository repository, MyTask task) {
         this.repository = repository;
         this.task = task;
     }
@@ -73,7 +97,7 @@ public class TaskController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //completed.selectedProperty().bindBidirectional(todoItem.doneProperty());
-        playLabel.setGlyphName(String.valueOf(FontAwesomeIcon.DOT_CIRCLE_ALT));
+        //playLabel.setGlyphName(String.valueOf(FontAwesomeIcon.DOT_CIRCLE_ALT));
 
 
         title.textProperty().bindBidirectional(task.nameProperty());
@@ -83,7 +107,7 @@ public class TaskController implements Initializable{
         timesLable.textProperty().bindBidirectional(task.timesProperty(), new NumberStringConverter());
         active.selectedProperty().bindBidirectional(task.activeProperty());
         active.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue){
+            if (newValue) {
                 rootNode.getStyleClass().removeAll("in_active");
                 rootNode.getStyleClass().add("active");
             } else {
@@ -93,8 +117,9 @@ public class TaskController implements Initializable{
 
         });
         task.workingProperty().addListener((observable, oldValue, newValue) -> {
+            playLabel.setOpacity(1);
             if (newValue) playLabel.setGlyphName(playingLabel);
-            else playLabel.setGlyphName(circleLable);
+            //else playLabel.setGlyphName(circleLable);
         });
         task.doneProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) playLabel.setGlyphName(doneLabel);

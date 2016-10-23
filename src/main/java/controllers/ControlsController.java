@@ -72,6 +72,11 @@ public class ControlsController implements Initializable{
     void start(ActionEvent event) {
         timerService.play();
         pauseBtn.setSelected(false);
+        try {
+            showTimerWidget();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -106,5 +111,17 @@ public class ControlsController implements Initializable{
             return Utils.prepareTime(timeMillis)+" min";
         }, repository.getWholeTime()));
 
+    }
+
+    public void showTimerWidget() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/layout/timerWidget.fxml"));
+        TimerWidgetController controller = new TimerWidgetController(repository);
+        loader.setController(controller);
+        Stage stage = new Stage();
+        loader.load();
+        Parent root = loader.getRoot();
+        stage.setScene(new Scene(root, 400, 400));
+        stage.show();
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Arc?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Arc layoutX="200.0" layoutY="200.0" length="360.0" radiusX="190.0" radiusY="190.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" type="ROUND">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#8f9aa4" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Arc>
+      <Pane fx:id="arcContainer" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Arc fill="#db521c4d" layoutX="200.0" layoutY="200.0" length="30.0" radiusX="190.0" radiusY="190.0" startAngle="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
+            <Arc fill="#1fff2d9e" layoutX="200.0" layoutY="200.0" length="20.0" radiusX="190.0" radiusY="190.0" startAngle="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
+         </children>
+      </Pane>
+      <Arc fx:id="timerArc" fill="#dd8d87" layoutX="200.0" layoutY="200.0" opacity="0.64" radiusX="190.0" radiusY="190.0" startAngle="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
+      <Arc fill="#90a2b2" layoutX="200.0" layoutY="200.0" length="360.0" radiusX="160.0" radiusY="160.0" startAngle="45.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
+   </children>
+</AnchorPane>
