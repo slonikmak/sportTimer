@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 public class TimerService {
     private Repository repository;
 
-    private final int DURATION_MILLIS = 100;
+    private final int DURATION_MILLIS = 50;
 
     private Timeline timeline = null;
 

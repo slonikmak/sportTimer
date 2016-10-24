@@ -23,7 +23,8 @@
             </Button>
          </children>
       </AnchorPane>
-      <Label id="timer" fx:id="timer" text="10:36" />
+      <Label id="timer" fx:id="timer" minHeight="0.0" prefHeight="0.0" text="10:36" />
+      <fx:include source="timerWidget.fxml" />
       <fx:include source="tasks.fxml" />
       <fx:include source="controls.fxml" />
    </children>

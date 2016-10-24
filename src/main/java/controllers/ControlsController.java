@@ -12,6 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.MyTask;
@@ -115,15 +118,16 @@ public class ControlsController implements Initializable{
     }
 
     public void showTimerWidget() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
+       /* FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/layout/timerWidget.fxml"));
         TimerWidgetController controller = new TimerWidgetController(repository);
         loader.setController(controller);
         Stage stage = new Stage();
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        //stage.initStyle(StageStyle.UTILITY);
         loader.load();
-        Parent root = loader.getRoot();
-        stage.setScene(new Scene(root, 400, 400));
-        stage.show();
+        AnchorPane root = loader.getRoot();
+        stage.setScene(new Scene(root, 400, 400, Color.TRANSPARENT));
+        stage.show();*/
     }
 }

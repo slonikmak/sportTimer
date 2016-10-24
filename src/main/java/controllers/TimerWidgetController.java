@@ -1,8 +1,10 @@
 package controllers;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -10,6 +12,7 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import model.MyTask;
 import repository.Repository;
+import utils.Utils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +22,8 @@ import java.util.ResourceBundle;
  */
 public class TimerWidgetController implements Initializable{
     Repository repository;
+    double step;
+    long totalTime;
 
     @FXML
     Arc timerArc;
@@ -26,6 +31,8 @@ public class TimerWidgetController implements Initializable{
     Pane arcContainer;
     @FXML
     AnchorPane rootPane;
+    @FXML
+    Label timeLabel;
 
 
     public TimerWidgetController(Repository repository){
@@ -34,11 +41,20 @@ public class TimerWidgetController implements Initializable{
     }
 
     private void setTimerSectors(){
-        Color workColor = Color.web("#db521c");
-        Color pauseColor = Color.web("#1fff2d");
+        Color workColor = Color.web("#ddd059");
+        Color pauseColor = Color.web("#128318");
         final double[] startAngle = {90};
         ObservableList<MyTask> list = repository.activeTasksProperty();
-        double step = 360D/repository.getWholeTime().get();
+        step = 360D/repository.getWholeTime().get();
+        totalTime = repository.getWholeTime().get();
+
+        timerArc.lengthProperty().bind((repository.getWholeTime().subtract(totalTime)).multiply(step));
+        timeLabel.textProperty().bind(Bindings.createStringBinding(()->{
+            final long timeMillis = repository.getWholeTime().getValue();
+            return Utils.prepareTime(timeMillis);
+        }, repository.getWholeTime()));
+
+
         System.out.println("step "+step);
         list.forEach(task -> {
             int times = task.getTimes();
@@ -55,7 +71,7 @@ public class TimerWidgetController implements Initializable{
 
     public void insertSecotr(double startAngle, double length, Color color){
         System.out.println(startAngle+" "+length);
-        Arc arc = new Arc(200, 200, 190, 190, startAngle, length);
+        Arc arc = new Arc(150, 150, 140, 140, startAngle, length);
         arc.setFill(color);
         arc.setType(ArcType.ROUND);
         arc.setOpacity(0.2);

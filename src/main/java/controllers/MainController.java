@@ -27,9 +27,9 @@ public class MainController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        timer.textProperty().bind(Bindings.createStringBinding(()->{
+        /*timer.textProperty().bind(Bindings.createStringBinding(()->{
             final long timeMillis = repository.getWholeTime().getValue();
             return Utils.prepareTime(timeMillis)+" min";
-        }, repository.getWholeTime()));
+        }, repository.getWholeTime()));*/
     }
 }
