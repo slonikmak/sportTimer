@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.MyTask;
 import repository.Repository;
 import timerService.TimerService;
@@ -119,6 +120,7 @@ public class ControlsController implements Initializable{
         TimerWidgetController controller = new TimerWidgetController(repository);
         loader.setController(controller);
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.UTILITY);
         loader.load();
         Parent root = loader.getRoot();
         stage.setScene(new Scene(root, 400, 400));

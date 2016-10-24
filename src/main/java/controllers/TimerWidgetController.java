@@ -3,6 +3,7 @@ package controllers;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
@@ -23,6 +24,8 @@ public class TimerWidgetController implements Initializable{
     Arc timerArc;
     @FXML
     Pane arcContainer;
+    @FXML
+    AnchorPane rootPane;
 
 
     public TimerWidgetController(Repository repository){
@@ -33,7 +36,7 @@ public class TimerWidgetController implements Initializable{
     private void setTimerSectors(){
         Color workColor = Color.web("#db521c");
         Color pauseColor = Color.web("#1fff2d");
-        final double[] sartAngle = {90};
+        final double[] startAngle = {90};
         ObservableList<MyTask> list = repository.activeTasksProperty();
         double step = 360D/repository.getWholeTime().get();
         System.out.println("step "+step);
@@ -41,11 +44,11 @@ public class TimerWidgetController implements Initializable{
             int times = task.getTimes();
             for (int i = 0; i < times; i++) {
                 double length = -1*task.getTime()*step;
-                insertSecotr(sartAngle[0], length, workColor);
-                sartAngle[0] = sartAngle[0] +length;
+                insertSecotr(startAngle[0], length, workColor);
+                startAngle[0] = startAngle[0] +length;
                 length = -1*task.getPause()*step;
-                insertSecotr(sartAngle[0], length, pauseColor);
-                sartAngle[0] = sartAngle[0] +length;
+                insertSecotr(startAngle[0], length, pauseColor);
+                startAngle[0] = startAngle[0] +length;
             }
         });
     }
@@ -62,6 +65,7 @@ public class TimerWidgetController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         arcContainer.getChildren().clear();
         setTimerSectors();
 
