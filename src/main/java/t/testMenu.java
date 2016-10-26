@@ -93,7 +93,7 @@ public class testMenu extends Application {
         ObservableList<MyTask> list = repository.activeTasksProperty();
         double step = 360D/repository.getWholeTime().get();
         System.out.println("step "+step);
-        list.forEach(task -> {
+        /*list.forEach(task -> {
             int times = task.getTimes();
             for (int i = 0; i < times; i++) {
                 double length = -1*task.getTime()*step;
@@ -103,7 +103,7 @@ public class testMenu extends Application {
                 insertSecotr(sartAngle[0], length, pauseColor);
                 sartAngle[0] = sartAngle[0] +length;
             }
-        });
+        });*/
     }
 
     public void insertSecotr(double startAngle, double length, Color color){

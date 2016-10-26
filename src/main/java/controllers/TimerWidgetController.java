@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.beans.binding.Bindings;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,6 +42,8 @@ public class TimerWidgetController implements Initializable{
     }
 
     private void setTimerSectors(){
+        arcContainer.getChildren().clear();
+
         Color workColor = Color.web("#ddd059");
         Color pauseColor = Color.web("#128318");
         final double[] startAngle = {90};
@@ -82,8 +85,16 @@ public class TimerWidgetController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        arcContainer.getChildren().clear();
+
         setTimerSectors();
+        repository.allTasksProperty().addListener(new ListChangeListener<MyTask>() {
+            @Override
+            public void onChanged(Change<? extends MyTask> c) {
+                c.next();
+                if (c.wasUpdated()) return;
+                setTimerSectors();
+            }
+        });
 
     }
 }
