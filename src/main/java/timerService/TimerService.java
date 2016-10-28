@@ -45,7 +45,7 @@ public class TimerService {
                     if (currTask.get().getCurrentTime() == (long) 0) {
                         System.out.println("end");
                         currTask.get().setWorking(false);
-                        currTask.get().setActive(false);
+                        //currTask.get().setActive(false);
                         currTask.get().setDone(true);
                         if (tasks.size()==0){
                             timeline.stop();

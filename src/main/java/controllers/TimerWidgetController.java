@@ -87,10 +87,11 @@ public class TimerWidgetController implements Initializable{
 
 
         setTimerSectors();
-        repository.allTasksProperty().addListener(new ListChangeListener<MyTask>() {
+        repository.currentTasksProperty().addListener(new ListChangeListener<MyTask>() {
             @Override
             public void onChanged(Change<? extends MyTask> c) {
                 c.next();
+
                 if (c.wasUpdated()) return;
                 setTimerSectors();
             }
